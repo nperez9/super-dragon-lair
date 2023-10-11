@@ -1,7 +1,9 @@
 import { GameObjects } from 'phaser';
 import FpsText from '../objects/fpsText';
 import { Sprites } from '../objects/Sprites';
+
 import { Enemy } from '../types';
+import { twoDecimalFormat } from '../utils';
 
 export default class MainScene extends Phaser.Scene {
   fpsText: FpsText;
@@ -60,9 +62,11 @@ export default class MainScene extends Phaser.Scene {
   private addEnemy(x: number, y: number, scale: number = 0.5): void {
     const enemy = this.add.sprite(x, y, Sprites.Enemy) as Enemy;
     enemy.setScale(scale).flipX = true;
+
     enemy.direction = Math.random() < 0.5 ? 1 : -1;
-    const speed = Math.floor(this.enemySpeed.min + Math.random() * (this.enemySpeed.max - this.enemySpeed.min));
-    enemy.speed = speed * enemy.direction;
+    const speed = this.enemySpeed.min + Math.random() * (this.enemySpeed.max - this.enemySpeed.min);
+    enemy.speed = twoDecimalFormat(speed) * enemy.direction;
+
     console.info(enemy.speed);
     this.enemies.push(enemy);
   }
