@@ -1,5 +1,5 @@
 {
-  "name": "Super-dragons-lair",
+  "name": "super-dragon-lair",
   "version": "1.0",
   "description": "An Arcade html5 game with pahaser",
   "homepage": "https://github.com/yandeu/phaser-project-template#readme",
@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yandeu/phaser-project-template.git"
+    "url": "https://github.com/nperez9/super-dragon-lair"
   },
   "template": {
     "name": "phaser-project-template",
