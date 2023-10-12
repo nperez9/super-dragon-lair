@@ -122,10 +122,7 @@ export default class MainScene extends Phaser.Scene {
     const treasureCollider = this.treasure.getBounds();
 
     if (Phaser.Geom.Intersects.RectangleToRectangle(playerCollider, treasureCollider)) {
-      alert('You Won!!');
-      this.releasedButton = false;
-      this.scene.restart();
-      window.location.reload();
+      this.gameWin();
     }
   }
 
@@ -143,5 +140,9 @@ export default class MainScene extends Phaser.Scene {
     });
   }
 
-  private gameWin(): void {}
+  private gameWin(): void {
+    this.releasedButton = false;
+    this.scene.start('WinScene');
+    this.scene.pause();
+  }
 }
