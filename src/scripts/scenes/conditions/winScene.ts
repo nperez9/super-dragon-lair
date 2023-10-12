@@ -4,7 +4,6 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   create() {
-    const screenWidth = this.sys.game.config.width as number;
     const screenHeigth = this.sys.game.config.height as number;
 
     this.add
