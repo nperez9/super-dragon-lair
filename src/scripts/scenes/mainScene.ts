@@ -19,7 +19,7 @@ export default class MainScene extends Phaser.Scene {
   playerSpeed: number = 3;
   enemySpeed = {
     min: 1,
-    max: 5,
+    max: 3,
   };
   enemyRange = {
     minY: 0,
@@ -113,10 +113,9 @@ export default class MainScene extends Phaser.Scene {
     const treasureCollider = this.treasure.getBounds();
 
     if (Phaser.Geom.Intersects.RectangleToRectangle(playerCollider, treasureCollider)) {
-      alert('You Won!!');
       this.releasedButton = false;
-      this.scene.restart();
-      window.location.reload();
+      this.scene.start('WinScene');
+      this.scene.pause();
     }
   }
 }
