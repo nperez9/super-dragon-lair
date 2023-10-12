@@ -15,6 +15,9 @@ export default class MainScene extends Phaser.Scene {
   player: GameObjects.Sprite;
   treasure: GameObjects.Sprite;
 
+  // group
+  enemiesGroup;
+
   // config Values
   playerSpeed: number = 3;
   enemySpeed = {
@@ -44,14 +47,35 @@ export default class MainScene extends Phaser.Scene {
     this.enemyRange.minY = this.screenHeigth / 5;
     this.enemyRange.maxY = this.screenHeigth / 1.3;
 
-    this.addEnemy(120, this.screenHeigth / 2);
-    this.addEnemy(220, this.screenHeigth / 5);
-    this.addEnemy(320, this.screenHeigth / 1.3);
-    this.addEnemy(420, this.screenHeigth / 3);
-    this.addEnemy(520, this.screenHeigth / 1.8);
+    this.enemiesGroup = this.add.group({
+      //@ts-ignore
+      key: 'enemy',
+      repeat: 4,
+      setXY: {
+        x: 100,
+        y: this.enemyRange.minY,
+        stepX: 100,
+        stepY: (this.enemyRange.maxY - this.enemyRange.minY) / 5,
+      },
+    });
+
+    Phaser.Actions.ScaleXY(this.enemiesGroup.getChildren(), -0.5);
+    Phaser.Actions.Call(
+      this.enemiesGroup.getChildren(),
+      function (enemy) {
+        //@ts-ignore
+        enemy.flipX = true;
+
+        const direction = Math.random() < 0.5 ? 1 : -1;
+        // @ts-ignore
+        const speed = this.enemySpeed.min + Math.random() * (this.enemySpeed.max - this.enemySpeed.min);
+        // @ts-ignore
+        enemy.speed = twoDecimalFormat(speed) * direction;
+      },
+      this,
+    );
 
     this.treasure = this.add.sprite(this.screenWidth - 80, this.screenHeigth / 2, Sprites.Treasure).setScale(0.5);
-    console.info(this.enemies);
   }
 
   private createPlayer() {
@@ -67,14 +91,13 @@ export default class MainScene extends Phaser.Scene {
     const speed = this.enemySpeed.min + Math.random() * (this.enemySpeed.max - this.enemySpeed.min);
     enemy.speed = twoDecimalFormat(speed) * enemy.direction;
 
-    console.info(enemy.speed);
-    this.enemies.push(enemy);
+    this.enemiesGroup.add(enemy);
   }
 
   update() {
     this.fpsText.update();
     this.checkInputs();
-    this.moveEnemies();
+    // this.moveEnemies();
     this.checkWinCondition();
   }
 
@@ -93,7 +116,7 @@ export default class MainScene extends Phaser.Scene {
 
       const conditionUp = this.enemies[i].speed < 0 && this.enemies[i].y <= this.enemyRange.minY;
       const conditionDown = this.enemies[i].speed > 0 && this.enemies[i].y >= this.enemyRange.maxY;
-      // flipdirection
+
       if (conditionDown || conditionUp) {
         this.enemies[i].speed *= -1;
       }
