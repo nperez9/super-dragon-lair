@@ -1,7 +1,7 @@
 {
   "name": "super-dragon-lair",
   "version": "1.0",
-  "description": "An Arcade html5 game with pahaser",
+  "description": "An Arcade html5 game with phaser",
   "homepage": "https://github.com/yandeu/phaser-project-template#readme",
   "main": "index.ts",
   "scripts": {
