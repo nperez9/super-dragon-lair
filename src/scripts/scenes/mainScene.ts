@@ -1,6 +1,7 @@
 import FpsText from '../objects/fpsText';
 import { Sprites } from '../objects/Sprites';
 
+import { gameplayConfig } from '../config';
 import { EnemyGroup, Sprite } from '../types';
 import { twoDecimalFormat } from '../utils';
 import { Group, GroupCreateConfig } from '../types/phaser';
@@ -17,10 +18,7 @@ export default class MainScene extends Phaser.Scene {
 
   // config Values
   playerSpeed: number = 3;
-  enemySpeed = {
-    min: 1,
-    max: 4,
-  };
+  enemySpeed = gameplayConfig.enemySpeed;
   enemyRange = {
     minY: 0,
     maxY: 0,
