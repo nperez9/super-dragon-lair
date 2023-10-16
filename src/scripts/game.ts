@@ -14,6 +14,8 @@ const config = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT,
   },
+  title: 'Super-Dragons-Lair',
+  pixelArt: true,
   scene: [PreloadScene, MainScene, WinScene],
   physics: {
     default: 'arcade',

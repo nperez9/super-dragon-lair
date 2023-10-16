@@ -1,14 +1,14 @@
 {
-  "short_name": "Phaser Game",
-  "name": "My Cool Phaser 3 Game",
+  "short_name": "Super DL",
+  "name": "Super Dragons Lair",
   "icons": [
     {
-      "src": "./icons/icons-192.png",
+      "src": "./assets/icons/icons-192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "./icons/icons-512.png",
+      "src": "./assets/icons/icons-512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
