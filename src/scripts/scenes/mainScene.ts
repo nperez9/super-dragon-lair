@@ -76,7 +76,6 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
-    this.fpsText.update();
     if (this.endGame) {
       return;
     }
