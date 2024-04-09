@@ -1,9 +1,7 @@
-export default class WinScene extends Phaser.Scene {
+export default class StartScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'WinScene' });
+    super({ key: 'StartScene' });
   }
-
-  private isPress: boolean;
   private retryText;
 
   create() {

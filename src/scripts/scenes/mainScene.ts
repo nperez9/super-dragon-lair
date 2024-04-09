@@ -125,9 +125,9 @@ export default class MainScene extends Phaser.Scene {
   private gameOver(): void {
     this.endGame = true;
 
-    this.cameras.main.shake(400);
+    this.cameras.main.shake(300);
     this.cameras.main.on('camerashakecomplete', () => {
-      this.cameras.main.fade(400);
+      this.cameras.main.fade(300);
     });
 
     this.cameras.main.on('camerafadeoutcomplete', () => {
