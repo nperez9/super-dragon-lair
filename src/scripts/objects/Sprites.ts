@@ -3,4 +3,7 @@ export enum Sprites {
   Enemy = 'enemy',
   Player = 'player',
   Treasure = 'treasure',
+  WinBackground = 'winBackground',
+  RetryButton = 'retryButton',
+  StartBackground = 'startBackground',
 }
