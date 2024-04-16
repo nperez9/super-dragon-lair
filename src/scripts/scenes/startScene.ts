@@ -1,25 +1,24 @@
+import { Sprites } from '../objects/Sprites';
+import { Music } from '../types/Music';
+
 export default class StartScene extends Phaser.Scene {
   constructor() {
     super({ key: 'StartScene' });
   }
   private retryText;
+  private music;
 
   create() {
     const screenHeigth = this.sys.game.config.height as number;
-    const style = { color: '#FFF', fontSize: '28px', fontFamily: 'sans-serif' };
+    const style = { color: '#110000', fontSize: '28px', fontFamily: 'sans-serif' };
+    const middleScreen = (this.sys.game.config.width as number) / 2;
 
-    this.add
-      .text(200, screenHeigth / 2, 'You Won!!', style)
-      .setDepth(1500)
-      .setOrigin(0, 1);
-
-    this.add
-      .text(200, screenHeigth / 2 + 40, 'Thanks for playing', style)
-      .setDepth(1500)
-      .setOrigin(0, 1);
+    this.music = this.sound.add(Music.startScreen, { loop: true, volume: 0.5 });
+    this.music.play();
+    this.add.sprite(middleScreen, 0, Sprites.StartBackground).setScale(0.4).setOrigin(0.5, 0);
 
     this.retryText = this.add
-      .text(200, screenHeigth / 2 + 100, 'Tap here to play again', { ...style, fontSize: '34px' })
+      .text(200, screenHeigth / 2 + 100, 'Tap here to Play', { ...style, fontSize: '48px' })
       .setDepth(1500)
       .setOrigin(0, 1)
       .setInteractive({ useHandCursor: true })
@@ -29,7 +28,7 @@ export default class StartScene extends Phaser.Scene {
   }
 
   private startGame() {
-    console.info('test');
+    this.music.stop();
     this.scene.start('MainScene');
   }
 }

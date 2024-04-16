@@ -3,6 +3,7 @@ import MainScene from './scenes/mainScene';
 import PreloadScene from './scenes/preloadScene';
 import WinScene from './scenes/conditions/winScene';
 import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from './config';
+import StartScene from './scenes/startScene';
 
 const config = {
   type: Phaser.AUTO,
@@ -16,11 +17,11 @@ const config = {
   },
   title: 'Super-Dragons-Lair',
   pixelArt: true,
-  scene: [PreloadScene, MainScene, WinScene],
+  scene: [PreloadScene, StartScene, MainScene, WinScene],
   physics: {
     default: 'arcade',
     arcade: {
-      debug: false,
+      debug: true,
       gravity: { y: 400 },
     },
   },

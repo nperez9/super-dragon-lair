@@ -3,4 +3,7 @@ export const gameplayConfig = {
     min: 1,
     max: 6,
   },
+  player: {
+    speed: 3,
+  },
 };

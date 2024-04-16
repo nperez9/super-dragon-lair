@@ -12,7 +12,7 @@ export default class MainScene extends Phaser.Scene {
   screenHeigth: number;
 
   // Sprites
-  player: Sprite;
+  player: any;
   treasure: Sprite;
   enemiesGroup: Group;
 
@@ -73,6 +73,9 @@ export default class MainScene extends Phaser.Scene {
   private createPlayer() {
     this.player = this.add.sprite(50, this.screenHeigth / 2, Sprites.Player);
     this.player.setScale(0.5).setDepth(1);
+    this.player = this.physics.add.existing(this.player);
+    this.player.body.setSize(40, 40);
+    this.player.body.setCollideWorldBounds(true);
   }
 
   update() {
@@ -104,6 +107,8 @@ export default class MainScene extends Phaser.Scene {
       }
     }
   }
+
+  private PlayerEnemeysCollision(player, enemies): void {}
 
   private checkInputs(): void {
     if (this.input.activePointer.isDown && this.releasedButton) {
