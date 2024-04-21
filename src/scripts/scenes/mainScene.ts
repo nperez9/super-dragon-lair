@@ -38,11 +38,30 @@ export default class MainScene extends Phaser.Scene {
     this.screenHeigth = this.sys.game.config.height as number;
 
     this.createPlayer();
+    this.createEnemies();
 
     this.enemyRange.minY = this.screenHeigth / 5;
     this.enemyRange.maxY = this.screenHeigth / 1.3;
 
-    this.enemiesGroup = this.add.group({
+    this.treasure = this.add.sprite(this.screenWidth - 80, this.screenHeigth / 2, Sprites.Treasure).setScale(0.5);
+    this.treasure = this.physics.add.existing(this.treasure, true);
+    this.endGame = false;
+
+    this.physics.add.collider(this.player, this.enemiesGroup, this.PlayerEnemeysCollision, null, this);
+  }
+
+  private createPlayer() {
+    const playerSprite = this.add.sprite(50, this.screenHeigth / 2, Sprites.Player);
+    playerSprite.setScale(0.5).setDepth(1);
+    this.player = this.physics.add.existing(playerSprite, false);
+    this.player.body.setSize(40, 40);
+    this.player.body.setCollideWorldBounds(true);
+    this.player.body.setGravityY(0);
+    this.player.body.setGravityX(0);
+  }
+
+  private createEnemies() {
+    this.enemiesGroup = this.physics.add.group({
       key: 'enemy',
       repeat: 4,
       setXY: {
@@ -62,22 +81,10 @@ export default class MainScene extends Phaser.Scene {
 
         enemy.flipX = true;
         enemy.speed = twoDecimalFormat(speed) * direction;
+        enemy.body.setSize(50, 50);
       },
       this,
     );
-
-    this.treasure = this.add.sprite(this.screenWidth - 80, this.screenHeigth / 2, Sprites.Treasure).setScale(0.5);
-    this.endGame = false;
-  }
-
-  private createPlayer() {
-    const playerSprite = this.add.sprite(50, this.screenHeigth / 2, Sprites.Player);
-    playerSprite.setScale(0.5).setDepth(1);
-    this.player = this.physics.add.existing(playerSprite, false);
-    this.player.body.setSize(40, 40);
-    this.player.body.setCollideWorldBounds(true);
-    this.player.body.setGravityY(0);
-    this.player.body.setGravityX(0);
   }
 
   update() {
@@ -92,14 +99,8 @@ export default class MainScene extends Phaser.Scene {
 
   private moveEnemies(): void {
     const enemies: EnemyGroup[] = this.enemiesGroup.getChildren();
-    const playerCollider = this.player.getBounds();
     for (let i = 0; i < enemies.length; i++) {
       enemies[i].y += enemies[i].speed;
-      const enemyCollider = enemies[i].getBounds();
-
-      if (Phaser.Geom.Intersects.RectangleToRectangle(playerCollider, enemyCollider)) {
-        return this.gameOver();
-      }
 
       const conditionUp = enemies[i].speed < 0 && enemies[i].y <= this.enemyRange.minY;
       const conditionDown = enemies[i].speed > 0 && enemies[i].y >= this.enemyRange.maxY;
@@ -110,7 +111,9 @@ export default class MainScene extends Phaser.Scene {
     }
   }
 
-  private PlayerEnemeysCollision(player, enemies): void {}
+  private PlayerEnemeysCollision(player, enemies): void {
+    this.gameOver();
+  }
 
   private checkInputs(): void {
     if (this.input.activePointer.isDown && this.releasedButton) {
@@ -132,7 +135,7 @@ export default class MainScene extends Phaser.Scene {
   private gameOver(): void {
     this.endGame = true;
 
-    this.cameras.main.shake(300);
+    this.cameras.main.shake(300, 0.02);
     this.cameras.main.on('camerashakecomplete', () => {
       this.cameras.main.fade(300);
     });

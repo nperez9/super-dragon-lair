@@ -5,7 +5,6 @@ export default class WinScene extends Phaser.Scene {
     super({ key: 'WinScene' });
   }
 
-  private isPress: boolean;
   private retryText;
 
   create() {
@@ -16,7 +15,7 @@ export default class WinScene extends Phaser.Scene {
     this.add.sprite(middleScreen, 0, Sprites.WinBackground).setScale(1).setOrigin(0.5, 0);
 
     this.retryText = this.add
-      .text(200, screenHeigth / 2 + 100, 'Tap here to play again', { ...style, fontSize: '34px' })
+      .text(middleScreen - 150, screenHeigth / 2 + 100, 'Tap here to play again', { ...style, fontSize: '34px' })
       .setDepth(1500)
       .setOrigin(0, 1)
       .setInteractive({ useHandCursor: true })
@@ -26,7 +25,6 @@ export default class WinScene extends Phaser.Scene {
   }
 
   private startGame() {
-    console.info('test');
     this.scene.start('MainScene');
   }
 }
