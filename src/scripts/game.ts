@@ -3,7 +3,7 @@ import MainScene from './scenes/mainScene';
 import PreloadScene from './scenes/preloadScene';
 import WinScene from './scenes/conditions/winScene';
 import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from './config';
-import StartScene from './scenes/startScene';
+import StartScene from './scenes/conditions/startScene';
 
 const config = {
   type: Phaser.AUTO,
@@ -22,7 +22,7 @@ const config = {
     default: 'arcade',
     arcade: {
       debug: true,
-      gravity: { y: 400 },
+      gravity: { y: 0, x: 0 },
     },
   },
 };

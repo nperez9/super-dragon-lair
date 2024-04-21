@@ -71,11 +71,13 @@ export default class MainScene extends Phaser.Scene {
   }
 
   private createPlayer() {
-    this.player = this.add.sprite(50, this.screenHeigth / 2, Sprites.Player);
-    this.player.setScale(0.5).setDepth(1);
-    this.player = this.physics.add.existing(this.player);
+    const playerSprite = this.add.sprite(50, this.screenHeigth / 2, Sprites.Player);
+    playerSprite.setScale(0.5).setDepth(1);
+    this.player = this.physics.add.existing(playerSprite, false);
     this.player.body.setSize(40, 40);
     this.player.body.setCollideWorldBounds(true);
+    this.player.body.setGravityY(0);
+    this.player.body.setGravityX(0);
   }
 
   update() {

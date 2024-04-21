@@ -4,6 +4,7 @@ export enum Sprites {
   Player = 'player',
   Treasure = 'treasure',
   WinBackground = 'winBackground',
-  RetryButton = 'retryButton',
   StartBackground = 'startBackground',
+  Title = 'title',
+  RetryButton = 'retryButton',
 }

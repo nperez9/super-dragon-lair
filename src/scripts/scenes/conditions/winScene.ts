@@ -1,3 +1,5 @@
+import { Sprites } from '../../objects/Sprites';
+
 export default class WinScene extends Phaser.Scene {
   constructor() {
     super({ key: 'WinScene' });
@@ -8,17 +10,10 @@ export default class WinScene extends Phaser.Scene {
 
   create() {
     const screenHeigth = this.sys.game.config.height as number;
+    const middleScreen = (this.sys.game.config.width as number) / 2;
     const style = { color: '#FFF', fontSize: '28px', fontFamily: 'sans-serif' };
 
-    this.add
-      .text(200, screenHeigth / 2, 'You Won!!', style)
-      .setDepth(1500)
-      .setOrigin(0, 1);
-
-    this.add
-      .text(200, screenHeigth / 2 + 40, 'Thanks for playing', style)
-      .setDepth(1500)
-      .setOrigin(0, 1);
+    this.add.sprite(middleScreen, 0, Sprites.WinBackground).setScale(1).setOrigin(0.5, 0);
 
     this.retryText = this.add
       .text(200, screenHeigth / 2 + 100, 'Tap here to play again', { ...style, fontSize: '34px' })
