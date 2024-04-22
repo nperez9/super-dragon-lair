@@ -11,4 +11,5 @@ export interface EnemyGroup extends GameObjects.GameObject {
   speed?: number;
   getBounds?: () => Phaser.Geom.Rectangle;
   body: any;
+  anims?: any;
 }

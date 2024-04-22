@@ -1,5 +1,5 @@
 import FpsText from '../objects/fpsText';
-import { Sprites } from '../types/Sprites';
+import { DragonSprites, Sprites } from '../types/Sprites';
 
 import { gameplayConfig } from '../config';
 import { EnemyGroup, Sprite } from '../types';
@@ -54,7 +54,8 @@ export default class MainScene extends Phaser.Scene {
     const playerSprite = this.add.sprite(50, this.screenHeigth / 2, Sprites.Player);
     playerSprite.setScale(0.5).setDepth(1);
     this.player = this.physics.add.existing(playerSprite, false);
-    this.player.body.setSize(40, 40);
+    this.player.body.setSize(35, 35);
+    this.player.body.setBounce(0, 0);
     this.player.body.setCollideWorldBounds(true);
     this.player.body.setGravityY(0);
     this.player.body.setGravityX(0);
@@ -62,7 +63,7 @@ export default class MainScene extends Phaser.Scene {
 
   private createEnemies() {
     this.enemiesGroup = this.physics.add.group({
-      key: 'enemy',
+      key: DragonSprites.DragonYellow,
       repeat: 4,
       setXY: {
         x: 100,
@@ -72,7 +73,7 @@ export default class MainScene extends Phaser.Scene {
       },
     } as GroupCreateConfig);
 
-    Phaser.Actions.ScaleXY(this.enemiesGroup.getChildren(), -0.5);
+    Phaser.Actions.ScaleXY(this.enemiesGroup.getChildren(), 1.5);
     Phaser.Actions.Call(
       this.enemiesGroup.getChildren(),
       (enemy: EnemyGroup) => {
@@ -81,26 +82,30 @@ export default class MainScene extends Phaser.Scene {
 
         enemy.flipX = true;
         enemy.speed = twoDecimalFormat(speed) * direction;
-        enemy.body.setSize(50, 50);
+        enemy.body.setSize(10, 10);
+        enemy.body.setBounce(0, 0);
+
+        enemy.anims.play('idle', 0);
+        console.info(enemy.anims, speed);
+        // enemy.anims.setDuration(800 * (1 / speed));
       },
       this,
     );
   }
 
   update() {
-    if (this.endGame) {
-      return;
-    }
-
-    this.checkInputs();
     this.moveEnemies();
-    this.checkWinCondition();
+
+    if (!this.endGame) {
+      this.checkInputs();
+      this.checkWinCondition();
+    }
   }
 
   private moveEnemies(): void {
     const enemies: EnemyGroup[] = this.enemiesGroup.getChildren();
     for (let i = 0; i < enemies.length; i++) {
-      enemies[i].y += enemies[i].speed;
+      enemies[i].body.setVelocityY(enemies[i].speed * 100);
 
       const conditionUp = enemies[i].speed < 0 && enemies[i].y <= this.enemyRange.minY;
       const conditionDown = enemies[i].speed > 0 && enemies[i].y >= this.enemyRange.maxY;
@@ -135,9 +140,9 @@ export default class MainScene extends Phaser.Scene {
   private gameOver(): void {
     this.endGame = true;
 
-    this.cameras.main.shake(300, 0.02);
+    this.cameras.main.shake(200, 0.01);
     this.cameras.main.on('camerashakecomplete', () => {
-      this.cameras.main.fade(300);
+      this.cameras.main.fade(200);
     });
 
     this.cameras.main.on('camerafadeoutcomplete', () => {

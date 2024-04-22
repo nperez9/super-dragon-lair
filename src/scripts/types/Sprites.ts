@@ -13,4 +13,9 @@ export enum Sprites {
 export enum DragonSprites {
   DragonYellow = 'dragonYellow',
   DragonGreen = 'dragonGreen',
+  DragonBlue = 'dragonBlue',
+  DragonCian = 'dragonCian',
+  DragonOrange = 'dragonOrange',
+  DragonWhite = 'dragonWhite',
+  DragonGray = 'dragonGray',
 }

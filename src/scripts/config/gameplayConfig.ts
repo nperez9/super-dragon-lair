@@ -1,9 +1,9 @@
 export const gameplayConfig = {
   enemySpeed: {
     min: 1,
-    max: 5,
+    max: 4,
   },
   player: {
-    speed: 3,
+    speed: 2,
   },
 };
