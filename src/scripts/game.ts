@@ -2,7 +2,7 @@ import 'phaser';
 import MainScene from './scenes/mainScene';
 import PreloadScene from './scenes/preloadScene';
 import WinScene from './scenes/conditions/winScene';
-import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from './config';
+import { DEFAULT_HEIGHT, DEFAULT_WIDTH, isDev } from './config';
 import StartScene from './scenes/conditions/startScene';
 
 const config = {
@@ -21,7 +21,7 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true,
+      debug: isDev,
       gravity: { y: 0, x: 0 },
     },
   },

@@ -6,5 +6,11 @@ export enum Sprites {
   WinBackground = 'winBackground',
   StartBackground = 'startBackground',
   Title = 'title',
+  BlackBackground = 'blackBackground',
   RetryButton = 'retryButton',
+}
+
+export enum DragonSprites {
+  DragonYellow = 'dragonYellow',
+  DragonGreen = 'dragonGreen',
 }

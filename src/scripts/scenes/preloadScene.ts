@@ -1,4 +1,4 @@
-import { Sprites } from '../objects/Sprites';
+import { Sprites } from '../types/Sprites';
 import { Music } from '../types/Music';
 
 export default class PreloadScene extends Phaser.Scene {
@@ -14,6 +14,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image(Sprites.StartBackground, 'assets/UI/start-screen.png');
     this.load.image(Sprites.WinBackground, 'assets/UI/win-screen.jpg');
     this.load.image(Sprites.Title, 'assets/UI/title.png');
+    this.load.image(Sprites.BlackBackground, 'assets/UI/tap-bg.png');
 
     this.load.audio(Music.startScreen, 'assets/music/startMusic.mp3');
   }

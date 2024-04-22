@@ -1,5 +1,5 @@
 import FpsText from '../objects/fpsText';
-import { Sprites } from '../objects/Sprites';
+import { Sprites } from '../types/Sprites';
 
 import { gameplayConfig } from '../config';
 import { EnemyGroup, Sprite } from '../types';
