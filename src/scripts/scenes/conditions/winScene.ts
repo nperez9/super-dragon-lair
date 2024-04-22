@@ -11,11 +11,13 @@ export class WinScene extends Phaser.Scene {
     const middleScreen = (this.sys.game.config.width as number) / 2;
 
     this.add.sprite(middleScreen, 0, Sprites.WinBackground).setScale(1).setOrigin(0.5, 0);
+    this.add.sprite(middleScreen, 0, Sprites.BlackBackground).setScale(1).setOrigin(0.5, 0);
+
     const clickeable = new ClickebleText(
       this,
-      middleScreen - 150,
-      screenHeigth / 2 + 100,
-      'Tap here to play again',
+      middleScreen,
+      screenHeigth / 2 + 155,
+      'Tap here to replay',
       this.Replay.bind(this),
     );
   }

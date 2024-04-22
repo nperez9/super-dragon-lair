@@ -1,4 +1,4 @@
-const baseStyle = { color: '#eee811', fontSize: '48px', fontFamily: 'pixel-cursive' };
+const baseStyle = { color: '#eee811', fontSize: '40px', fontFamily: 'pixel-cursive' };
 
 export class ClickebleText extends Phaser.GameObjects.Text {
   constructor(
@@ -11,11 +11,11 @@ export class ClickebleText extends Phaser.GameObjects.Text {
   ) {
     super(scene, x, y, text, { ...baseStyle, ...style });
     this.setDepth(1500)
-      .setOrigin(0, 1)
+      .setOrigin(0.5, 1)
       .setInteractive({ useHandCursor: true })
       .on('pointerdown', () => callback())
       .on('pointerover', () => this.setStyle({ fill: 'red' }))
-      .on('pointerout', () => this.setStyle({ fill: 'white' }));
+      .on('pointerout', () => this.setStyle({ fill: '#eee811' }));
 
     this.setStyle({ fontFamily: 'pixel-cursive' });
     scene.add.existing(this);

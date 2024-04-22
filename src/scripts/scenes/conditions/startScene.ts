@@ -22,7 +22,7 @@ export class StartScene extends Phaser.Scene {
 
     const tapToPlay = new ClickebleText(
       this,
-      middleScreen - 140,
+      middleScreen,
       screenHeigth / 2 + 155,
       'Tap here to play',
       this.startGame.bind(this),
