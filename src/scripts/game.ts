@@ -27,6 +27,10 @@ const config = {
   },
 };
 
+(window as any).SPDL = {
+  mute: true,
+};
+
 window.addEventListener('load', () => {
   const game = new Phaser.Game(config);
 });
