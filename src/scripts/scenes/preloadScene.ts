@@ -17,7 +17,8 @@ export default class PreloadScene extends Phaser.Scene {
 
   preload() {
     // Images
-    this.load.image(Sprites.Background, 'assets/sprites/background.png');
+    this.load.image(Sprites.Background, 'assets/sprites/start-scenario.jpg');
+    this.load.image(Sprites.Repeat, 'assets/sprites/repetable.jpg');
     this.load.image(Sprites.Player, 'assets/sprites/player.png');
     this.load.image(Sprites.Enemy, 'assets/sprites/dragon.png');
     this.load.image(Sprites.Treasure, 'assets/sprites/treasure.png');
@@ -49,6 +50,6 @@ export default class PreloadScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.scene.start('StartScene');
+    this.scene.start('MainScene');
   }
 }

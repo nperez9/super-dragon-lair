@@ -7,6 +7,7 @@ export enum Sprites {
   StartBackground = 'startBackground',
   Title = 'title',
   BlackBackground = 'blackBackground',
+  Repeat = 'repeat',
   RetryButton = 'retryButton',
 }
 

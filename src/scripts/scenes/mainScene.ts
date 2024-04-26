@@ -1,7 +1,7 @@
 import FpsText from '../objects/fpsText';
 import { DragonSprites, Sprites } from '../types/Sprites';
 
-import { gameplayConfig } from '../config';
+import { gameplayConfig, isDev } from '../config';
 import { EnemyGroup, Sprite } from '../types';
 import { twoDecimalFormat } from '../utils';
 import { Group, GroupCreateConfig } from '../types/phaser';
@@ -25,48 +25,64 @@ export default class MainScene extends Phaser.Scene {
   };
   releasedButton: boolean = false;
   endGame: boolean = false;
+  additionalCallback: Function;
+  distance: number = 0;
+  bgCount: number = 1;
+  startX: number = -100;
+  addnewBgposition: number = 0;
 
   constructor() {
     super({ key: 'MainScene' });
   }
 
   create() {
-    this.add.sprite(0, 0, Sprites.Background).setOrigin(0, 0).setDepth(0);
+    this.add.sprite(this.startX, 0, Sprites.Background).setOrigin(0, 0).setDepth(0);
+    this.add.sprite(this.getBgX(), 0, Sprites.Repeat).setOrigin(0, 0);
 
     this.fpsText = new FpsText(this).setDepth(100);
+    this.additionalCallback = isDev ? () => this.fpsText.update() : () => {};
+
     this.screenWidth = this.sys.game.config.width as number;
     this.screenHeigth = this.sys.game.config.height as number;
 
     this.createPlayer();
     this.createEnemies();
 
-    this.enemyRange.minY = this.screenHeigth / 5;
-    this.enemyRange.maxY = this.screenHeigth / 1.3;
+    this.enemyRange.minY = this.screenHeigth / 6;
+    this.enemyRange.maxY = this.screenHeigth / 1.1;
 
-    this.treasure = this.add.sprite(this.screenWidth - 80, this.screenHeigth / 2, Sprites.Treasure).setScale(0.5);
-    this.treasure = this.physics.add.existing(this.treasure, true);
+    // this.treasure = this.add.sprite(this.screenWidth - 80, this.screenHeigth / 2, Sprites.Treasure).setScale(0.5);
+    // this.treasure = this.physics.add.existing(this.treasure, true);
     this.endGame = false;
 
     this.physics.add.collider(this.player, this.enemiesGroup, this.PlayerEnemeysCollision, null, this);
   }
 
+  private getBgX(): number {
+    this.addnewBgposition = (this.bgCount - 1) * 640;
+    const bgX = this.startX + this.bgCount * 640;
+    this.bgCount++;
+    return bgX;
+  }
+
   private createPlayer() {
-    const playerSprite = this.add.sprite(50, this.screenHeigth / 2, Sprites.Player);
-    playerSprite.setScale(0.5).setDepth(1);
+    const playerSprite = this.add.sprite(30, this.screenHeigth / 2, Sprites.Player);
+    playerSprite.setScale(0.5).setDepth(100);
     this.player = this.physics.add.existing(playerSprite, false);
     this.player.body.setSize(35, 35);
     this.player.body.setBounce(0, 0);
-    this.player.body.setCollideWorldBounds(true);
     this.player.body.setGravityY(0);
     this.player.body.setGravityX(0);
+
+    this.cameras.main.startFollow(this.player, false, 0.1, 0, -200, 0);
   }
 
-  private createEnemies() {
+  private createEnemies(x: number = 100) {
     this.enemiesGroup = this.physics.add.group({
       key: DragonSprites.DragonYellow,
       repeat: 4,
       setXY: {
-        x: 100,
+        x,
         y: this.enemyRange.minY,
         stepX: 100,
         stepY: (this.enemyRange.maxY - this.enemyRange.minY) / 5,
@@ -86,7 +102,6 @@ export default class MainScene extends Phaser.Scene {
         enemy.body.setBounce(0, 0);
 
         enemy.anims.play('idle', 0);
-        console.info(enemy.anims, speed);
         // enemy.anims.setDuration(800 * (1 / speed));
       },
       this,
@@ -94,11 +109,12 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
+    this.additionalCallback();
     this.moveEnemies();
 
     if (!this.endGame) {
       this.checkInputs();
-      this.checkWinCondition();
+      // this.checkWinCondition();
     }
   }
 
@@ -123,6 +139,11 @@ export default class MainScene extends Phaser.Scene {
   private checkInputs(): void {
     if (this.input.activePointer.isDown && this.releasedButton) {
       this.player.x += this.playerSpeed;
+      if (this.player.x >= this.addnewBgposition) {
+        const x = this.getBgX();
+        this.add.sprite(x, 0, Sprites.Repeat).setOrigin(0, 0);
+        // this.createEnemies(x);
+      }
     } else if (!this.input.activePointer.isDown) {
       this.releasedButton = true;
     }
