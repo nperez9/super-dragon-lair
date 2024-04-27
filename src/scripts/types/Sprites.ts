@@ -11,6 +11,10 @@ export enum Sprites {
   RetryButton = 'retryButton',
 }
 
+export enum PlayerSprites {
+  HolyCrusader = 'holyCrusader',
+}
+
 export enum DragonSprites {
   DragonYellow = 'dragonYellow',
   DragonGreen = 'dragonGreen',
