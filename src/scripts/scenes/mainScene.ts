@@ -1,5 +1,5 @@
 import FpsText from '../objects/fpsText';
-import { DragonSprites, Sprites } from '../types/Sprites';
+import { DragonSprites, PlayerSprites, Sprites } from '../types/Sprites';
 
 import { gameplayConfig, isDev } from '../config';
 import { EnemyGroup, Sprite } from '../types';
@@ -66,13 +66,15 @@ export default class MainScene extends Phaser.Scene {
   }
 
   private createPlayer() {
-    const playerSprite = this.add.sprite(30, this.screenHeigth / 2, Sprites.Player);
-    playerSprite.setScale(0.5).setDepth(100);
+    const playerSprite = this.add.sprite(30, this.screenHeigth / 2, PlayerSprites.HolyCrusader);
+    playerSprite.setScale(2).setDepth(100).setOrigin(1, 0);
     this.player = this.physics.add.existing(playerSprite, false);
-    this.player.body.setSize(35, 35);
+    this.player.body.setSize(5, 10);
+    this.player.body.setOffset(10, 5);
     this.player.body.setBounce(0, 0);
     this.player.body.setGravityY(0);
     this.player.body.setGravityX(0);
+    this.player.anims.play('player-idle', 0);
 
     this.cameras.main.startFollow(this.player, false, 0.1, 0, -200, 0);
   }

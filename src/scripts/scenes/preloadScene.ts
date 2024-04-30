@@ -1,4 +1,4 @@
-import { DragonSprites, Sprites } from '../types/Sprites';
+import { DragonSprites, PlayerSprites, Sprites } from '../types/Sprites';
 import { Music } from '../types/Music';
 
 const dragonSpritesConfig = {
@@ -8,6 +8,15 @@ const dragonSpritesConfig = {
   spacing: 0,
   startFrame: 0,
   endFrame: 3,
+};
+
+const playerSpritesConfig = {
+  frameWidth: 16,
+  frameHeight: 16,
+  margin: 0,
+  spacing: 0,
+  startFrame: 0,
+  endFrame: 4,
 };
 
 export default class PreloadScene extends Phaser.Scene {
@@ -36,6 +45,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.spritesheet(DragonSprites.DragonWhite, 'assets/sprites/dragons/white-dragon.png', dragonSpritesConfig);
     this.load.spritesheet(DragonSprites.DragonYellow, 'assets/sprites/dragons/yellow-dragon.png', dragonSpritesConfig);
 
+    // Players
+    this.load.spritesheet(PlayerSprites.HolyCrusader, 'assets/sprites/player/HolyCrusaderIdleSide.png', playerSpritesConfig);
+
     // Audio & SFX
     this.load.audio(Music.startScreen, 'assets/music/startMusic.mp3');
   }
@@ -44,6 +56,15 @@ export default class PreloadScene extends Phaser.Scene {
     this.anims.create({
       key: 'idle',
       frames: this.anims.generateFrameNames(DragonSprites.DragonYellow, {
+        frames: [0, 1, 2, 3],
+      }),
+      frameRate: 5,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'player-idle',
+      frames: this.anims.generateFrameNames(PlayerSprites.HolyCrusader, {
         frames: [0, 1, 2, 3],
       }),
       frameRate: 5,
