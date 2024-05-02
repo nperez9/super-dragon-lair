@@ -76,8 +76,9 @@ export default class MainScene extends Phaser.Scene {
   }
 
   private createPlayer() {
-    const playerSprite = this.add.sprite(30, this.screenHeigth / 2 - 5, PlayerSprites.HolyCrusader);
-    playerSprite.setScale(2).setDepth(100).setOrigin(1, 0);
+    const offsetY = -10;
+    const playerSprite = this.add.sprite(30, this.screenHeigth / 2 + offsetY, PlayerSprites.HolyCrusader);
+    playerSprite.setScale(2.2).setDepth(100).setOrigin(1, 0);
     this.player = this.physics.add.existing(playerSprite, false);
     this.player.body.setSize(5, 11);
     this.player.body.setOffset(9, 3);
@@ -86,7 +87,7 @@ export default class MainScene extends Phaser.Scene {
     this.player.body.setGravityX(0);
     this.player.anims.play('player-idle', 0);
 
-    this.cameras.main.startFollow(this.player, false, 0.1, 0, -200, -5);
+    this.cameras.main.startFollow(this.player, false, 0.1, 0, -200, offsetY);
   }
 
   // REFACTOR THIS
