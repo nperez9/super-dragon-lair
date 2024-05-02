@@ -1,4 +1,5 @@
 import FpsText from '../objects/fpsText';
+import DistanceText from '../components/DistanceText';
 import { DragonSprites, PlayerSprites, Sprites } from '../types/Sprites';
 
 import { gameplayConfig, isDev } from '../config';
@@ -8,6 +9,7 @@ import { Group, GroupCreateConfig } from '../types/phaser';
 
 export default class MainScene extends Phaser.Scene {
   fpsText: FpsText;
+  distanceText: DistanceText;
   screenWidth: number;
   screenHeigth: number;
 
@@ -26,7 +28,7 @@ export default class MainScene extends Phaser.Scene {
   releasedButton: boolean = false;
   endGame: boolean = false;
   additionalCallback: Function;
-  distance: number = 0;
+  points: number = 0;
   bgCount: number = 1;
   startX: number = -100;
   addnewBgposition: number = 0;
@@ -36,14 +38,15 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.screenWidth = this.sys.game.config.width as number;
+    this.screenHeigth = this.sys.game.config.height as number;
+    this.intializeVariables();
     this.add.sprite(this.startX, 0, Sprites.Background).setOrigin(0, 0).setDepth(0);
     this.add.sprite(this.getBgX(), 0, Sprites.Repeat).setOrigin(0, 0);
 
     this.fpsText = new FpsText(this).setDepth(100);
+    this.distanceText = new DistanceText(this, this.points).setDepth(100);
     this.additionalCallback = isDev ? () => this.fpsText.update() : () => {};
-
-    this.screenWidth = this.sys.game.config.width as number;
-    this.screenHeigth = this.sys.game.config.height as number;
 
     this.createPlayer();
     this.createEnemies();
@@ -56,6 +59,12 @@ export default class MainScene extends Phaser.Scene {
     this.endGame = false;
 
     this.physics.add.collider(this.player, this.enemiesGroup, this.PlayerEnemeysCollision, null, this);
+  }
+
+  private intializeVariables(): void {
+    this.points = 0;
+    this.bgCount = 1;
+    this.addnewBgposition = 0;
   }
 
   private getBgX(): number {
@@ -105,7 +114,6 @@ export default class MainScene extends Phaser.Scene {
         enemy.body.setOffset(4, 6);
 
         enemy.anims.play('idle', 0);
-        // enemy.anims.setDuration(800 * (1 / speed));
       },
       this,
     );
@@ -117,7 +125,6 @@ export default class MainScene extends Phaser.Scene {
 
     if (!this.endGame) {
       this.checkInputs();
-      // this.checkWinCondition();
     }
   }
 
@@ -142,6 +149,8 @@ export default class MainScene extends Phaser.Scene {
   private checkInputs(): void {
     if (this.input.activePointer.isDown && this.releasedButton) {
       this.player.x += this.playerSpeed;
+      this.points++;
+      this.distanceText.update(this.points);
       if (this.player.x >= this.addnewBgposition) {
         const x = this.getBgX();
         this.add.sprite(x, 0, Sprites.Repeat).setOrigin(0, 0);
