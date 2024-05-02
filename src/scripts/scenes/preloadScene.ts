@@ -52,16 +52,18 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.audio(Music.startScreen, 'assets/music/startMusic.mp3');
   }
 
-  create() {
-    this.anims.create({
-      key: 'idle',
-      frames: this.anims.generateFrameNames(DragonSprites.DragonYellow, {
+  private createAnimation(dragonSprite: DragonSprites) {
+    return {
+      key: dragonSprite + 'idle',
+      frames: this.anims.generateFrameNames(dragonSprite, {
         frames: [0, 1, 2, 3],
       }),
       frameRate: 5,
       repeat: -1,
-    });
+    };
+  }
 
+  create() {
     this.anims.create({
       key: 'player-idle',
       frames: this.anims.generateFrameNames(PlayerSprites.HolyCrusader, {
@@ -71,6 +73,14 @@ export default class PreloadScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.scene.start('MainScene');
+    this.anims.create(this.createAnimation(DragonSprites.DragonBlue));
+    this.anims.create(this.createAnimation(DragonSprites.DragonCian));
+    this.anims.create(this.createAnimation(DragonSprites.DragonGray));
+    this.anims.create(this.createAnimation(DragonSprites.DragonGreen));
+    this.anims.create(this.createAnimation(DragonSprites.DragonOrange));
+    this.anims.create(this.createAnimation(DragonSprites.DragonWhite));
+    this.anims.create(this.createAnimation(DragonSprites.DragonYellow));
+
+    this.scene.start('StartScene');
   }
 }

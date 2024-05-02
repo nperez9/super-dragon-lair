@@ -14,20 +14,15 @@ export class StartScene extends Phaser.Scene {
     const middleScreen = (this.sys.game.config.width as number) / 2;
 
     this.music = this.sound.add(Music.startScreen, { loop: true, volume: 0.5 });
-    this.music.play();
+    // this.music.play();
 
     this.add.sprite(middleScreen, 0, Sprites.StartBackground).setScale(1).setOrigin(0.5, 0);
     this.add.sprite(middleScreen, 0, Sprites.Title).setScale(1).setOrigin(0.5, 0);
     this.add.sprite(middleScreen, 0, Sprites.BlackBackground).setScale(1).setOrigin(0.5, 0);
 
-    const tapToPlay = new ClickebleText(
-      this,
-      middleScreen,
-      screenHeigth / 2 + 155,
-      'Tap here to play',
-      this.startGame.bind(this),
-      { fontSize: '40px' },
-    );
+    new ClickebleText(this, middleScreen, screenHeigth / 2 + 155, 'Tap here to play', this.startGame.bind(this), {
+      fontSize: '40px',
+    });
   }
 
   private startGame() {

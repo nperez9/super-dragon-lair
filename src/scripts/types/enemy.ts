@@ -5,11 +5,8 @@ export interface Enemy extends GameObjects.Sprite {
   direction?: 1 | -1;
 }
 
-export interface EnemyGroup extends GameObjects.GameObject {
-  flipX?: boolean;
-  y?: number;
-  speed?: number;
-  getBounds?: () => Phaser.Geom.Rectangle;
-  body: any;
-  anims?: any;
+export interface EnemyGroup extends Phaser.Physics.Arcade.Sprite {
+  speed: number;
+  direction?: 1 | -1;
+  body: Phaser.Physics.Arcade.Body;
 }

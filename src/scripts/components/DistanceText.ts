@@ -4,7 +4,7 @@ const baseStyle = { color: '#eee811', fontSize: '28px', fontFamily: 'pixel-cursi
 
 export class DistanceText extends Phaser.GameObjects.Text {
   constructor(scene: Phaser.Scene, distance: number = 0, style: Phaser.Types.GameObjects.Text.TextStyle = {}) {
-    super(scene, DEFAULT_WIDTH / 2, 30, `Points: ${distance}`, { ...baseStyle, ...style });
+    super(scene, DEFAULT_WIDTH / 2, 35, `Points: ${distance}`, { ...baseStyle, ...style });
     this.setDepth(1500).setOrigin(0.5, 1);
     this.setScrollFactor(0);
     this.setStyle({ fontFamily: 'pixel-cursive' });
