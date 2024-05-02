@@ -66,17 +66,17 @@ export default class MainScene extends Phaser.Scene {
   }
 
   private createPlayer() {
-    const playerSprite = this.add.sprite(30, this.screenHeigth / 2, PlayerSprites.HolyCrusader);
+    const playerSprite = this.add.sprite(30, this.screenHeigth / 2 - 5, PlayerSprites.HolyCrusader);
     playerSprite.setScale(2).setDepth(100).setOrigin(1, 0);
     this.player = this.physics.add.existing(playerSprite, false);
-    this.player.body.setSize(5, 10);
-    this.player.body.setOffset(10, 5);
+    this.player.body.setSize(5, 11);
+    this.player.body.setOffset(9, 3);
     this.player.body.setBounce(0, 0);
     this.player.body.setGravityY(0);
     this.player.body.setGravityX(0);
     this.player.anims.play('player-idle', 0);
 
-    this.cameras.main.startFollow(this.player, false, 0.1, 0, -200, 0);
+    this.cameras.main.startFollow(this.player, false, 0.1, 0, -200, -5);
   }
 
   private createEnemies(x: number = 100) {
@@ -100,8 +100,9 @@ export default class MainScene extends Phaser.Scene {
 
         enemy.flipX = true;
         enemy.speed = twoDecimalFormat(speed) * direction;
-        enemy.body.setSize(10, 10);
+        enemy.body.setSize(7, 9);
         enemy.body.setBounce(0, 0);
+        enemy.body.setOffset(4, 6);
 
         enemy.anims.play('idle', 0);
         // enemy.anims.setDuration(800 * (1 / speed));
