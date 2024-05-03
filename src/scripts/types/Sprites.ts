@@ -5,10 +5,12 @@ export enum Sprites {
   Treasure = 'treasure',
   WinBackground = 'winBackground',
   StartBackground = 'startBackground',
+  LoseBackground = 'loseBackground',
   Title = 'title',
   BlackBackground = 'blackBackground',
   Repeat = 'repeat',
   RetryButton = 'retryButton',
+  PointsBlackBG = 'pointsBlackBG',
 }
 
 export enum PlayerSprites {
