@@ -172,7 +172,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.cameras.main.on('camerafadeoutcomplete', () => {
       this.releasedButton = false;
-      this.scene.restart();
+      this.scene.start('LoseScene');
     });
   }
 

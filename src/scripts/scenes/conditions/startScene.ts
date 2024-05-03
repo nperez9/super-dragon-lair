@@ -27,7 +27,11 @@ export class StartScene extends Phaser.Scene {
 
   private startGame() {
     this.music.stop();
-    this.scene.start('MainScene');
+
+    this.cameras.main.fade(200);
+    this.cameras.main.on('camerafadeoutcomplete', () => {
+      this.scene.start('MainScene');
+    });
   }
 }
 

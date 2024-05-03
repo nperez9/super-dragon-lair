@@ -35,6 +35,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image(Sprites.WinBackground, 'assets/UI/win-screen.jpg');
     this.load.image(Sprites.Title, 'assets/UI/title.png');
     this.load.image(Sprites.BlackBackground, 'assets/UI/tap-bg.png');
+    this.load.image(Sprites.LoseBackground, 'assets/UI/lose-screen.jpg');
+    this.load.image(Sprites.PointsBlackBG, 'assets/UI/lose-black-bg.png');
 
     // Dragoons
     this.load.spritesheet(DragonSprites.DragonBlue, 'assets/sprites/dragons/blue-dragon.png', dragonSpritesConfig);
