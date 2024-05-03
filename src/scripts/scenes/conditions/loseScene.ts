@@ -1,9 +1,20 @@
 import { Sprites } from '../../types/Sprites';
 import { ClickebleText } from '../../components/ClickeableText';
 
+export interface LoseSceneInitData {
+  points: number;
+}
+
 export class LoseScene extends Phaser.Scene {
+  private points: number;
+
   constructor() {
     super({ key: 'LoseScene' });
+  }
+
+  init(data: LoseSceneInitData) {
+    this.cameras.main.fadeIn(200);
+    this.points = data.points;
   }
 
   create() {
@@ -21,7 +32,8 @@ export class LoseScene extends Phaser.Scene {
       'Tap here to replay',
       this.Replay.bind(this),
     );
-    const title = new ClickebleText(this, middleScreen, screenHeigth / 2 - 155, 'You Lose'
+    const title = new ClickebleText(this, middleScreen, screenHeigth / 2 - 80, 'Game Over');
+    const points = new ClickebleText(this, middleScreen, screenHeigth / 2, 'Score: ' + this.points);
   }
 
   private Replay() {
