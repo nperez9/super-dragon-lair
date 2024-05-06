@@ -32,7 +32,10 @@ export class LoseScene extends Phaser.Scene {
       'Tap here to replay',
       this.Replay.bind(this),
     );
-    const title = new ClickebleText(this, middleScreen, screenHeigth / 2 - 80, 'Game Over');
+    const title = new ClickebleText(this, middleScreen, screenHeigth / 2 - 100, 'Game Over', null, {
+      fontSize: '52px',
+      color: '#F80000',
+    });
     const points = new ClickebleText(this, middleScreen, screenHeigth / 2, 'Score: ' + this.points);
   }
 

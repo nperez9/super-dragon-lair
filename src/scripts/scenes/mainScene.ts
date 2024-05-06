@@ -164,6 +164,8 @@ export default class MainScene extends Phaser.Scene {
 
   private gameOver(): void {
     this.endGame = true;
+    this.player.anims.stop();
+    this.player.rotation = -0.5;
 
     this.cameras.main.shake(200, 0.01);
     this.cameras.main.on('camerashakecomplete', () => {
