@@ -1,4 +1,4 @@
-import FpsText from '../objects/fpsText';
+import FpsText from '../components/FpsText';
 import DistanceText from '../components/DistanceText';
 import { DragonSprites, PlayerSprites, Sprites } from '../types/Sprites';
 

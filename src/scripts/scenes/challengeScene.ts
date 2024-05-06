@@ -1,4 +1,4 @@
-import FpsText from '../objects/fpsText';
+import FpsText from '../components/FpsText';
 import { Sprites } from '../types/Sprites';
 
 // Th
