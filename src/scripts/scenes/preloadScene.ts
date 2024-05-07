@@ -1,5 +1,5 @@
 import { DragonSprites, PlayerSprites, Sprites } from '../types/Sprites';
-import { Music } from '../types/Music';
+import { Music, SFX } from '../types/Music';
 
 const dragonSpritesConfig = {
   frameWidth: 16,
@@ -51,7 +51,12 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.spritesheet(PlayerSprites.HolyCrusader, 'assets/sprites/player/HolyCrusaderIdleSide.png', playerSpritesConfig);
 
     // Audio & SFX
-    this.load.audio(Music.startScreen, 'assets/music/startMusic.mp3');
+    this.load.audio(Music.startScreen, 'assets/music/start.ogg');
+    this.load.audio(Music.loseGame, 'assets/music/lose.ogg');
+    this.load.audio(Music.mianGame, 'assets/music/main.ogg');
+
+    this.load.audio(SFX.click, 'assets/sfx/metalClick.ogg');
+    this.load.audio(SFX.playerHit, 'assets/sfx/bookClose.ogg');
   }
 
   private createAnimation(dragonSprite: DragonSprites) {

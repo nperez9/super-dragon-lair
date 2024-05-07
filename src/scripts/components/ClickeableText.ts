@@ -1,3 +1,6 @@
+import { SFX_VOLUME } from '../config';
+import { SFX } from '../types/Music';
+
 const baseStyle = { color: '#eee811', fontSize: '40px', fontFamily: 'pixel-cursive' };
 
 export class ClickebleText extends Phaser.GameObjects.Text {
@@ -14,7 +17,10 @@ export class ClickebleText extends Phaser.GameObjects.Text {
 
     if (callback) {
       this.setInteractive({ useHandCursor: true })
-        .on('pointerdown', () => callback())
+        .on('pointerdown', () => {
+          this.scene.sound.play(SFX.click, { volume: SFX_VOLUME });
+          callback();
+        })
         .on('pointerover', () => this.setStyle({ fill: 'red' }))
         .on('pointerout', () => this.setStyle({ fill: '#eee811' }));
     }

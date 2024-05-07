@@ -1,5 +1,7 @@
 import { Sprites } from '../../types/Sprites';
 import { ClickebleText } from '../../components/ClickeableText';
+import { Music } from '../../types/Music';
+import { MUSIC_VOLUME } from '../../config';
 
 export interface LoseSceneInitData {
   points: number;
@@ -7,6 +9,7 @@ export interface LoseSceneInitData {
 
 export class LoseScene extends Phaser.Scene {
   private points: number;
+  music;
 
   constructor() {
     super({ key: 'LoseScene' });
@@ -37,11 +40,17 @@ export class LoseScene extends Phaser.Scene {
       color: '#F80000',
     });
     const points = new ClickebleText(this, middleScreen, screenHeigth / 2, 'Score: ' + this.points);
+    this.cameras.main.fadeIn(200);
+    this.cameras.main.on('camerafadeincomplete', () => {
+      this.sound.stopAll();
+      this.sound.play(Music.loseGame, { volume: MUSIC_VOLUME });
+    });
   }
 
   private Replay() {
     this.cameras.main.fade(200);
     this.cameras.main.on('camerafadeoutcomplete', () => {
+      this.sound.stopAll();
       this.scene.start('MainScene');
     });
   }

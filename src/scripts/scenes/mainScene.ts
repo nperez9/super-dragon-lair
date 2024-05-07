@@ -2,10 +2,11 @@ import FpsText from '../components/FpsText';
 import DistanceText from '../components/DistanceText';
 import { DragonSprites, PlayerSprites, Sprites } from '../types/Sprites';
 
-import { gameplayConfig, isDev } from '../config';
+import { MUSIC_VOLUME, SFX_VOLUME, gameplayConfig, isDev } from '../config';
 import { EnemyGroup, Sprite } from '../types';
 import { getRandomEnum, twoDecimalFormat } from '../utils';
 import { Group, GroupCreateConfig, SpritePhysics } from '../types/phaser';
+import { Music, SFX } from '../types/Music';
 
 const defaultEnemiesConfig = {
   cursor: 100,
@@ -20,6 +21,7 @@ export default class MainScene extends Phaser.Scene {
   distanceText: DistanceText;
   screenWidth: number;
   screenHeigth: number;
+  music: Phaser.Sound.BaseSound;
 
   // Sprites
   player: any;
@@ -59,6 +61,9 @@ export default class MainScene extends Phaser.Scene {
 
     this.endGame = false;
     this.physics.add.collider(this.player, this.enemiesGroup, this.PlayerEnemeysCollision, null, this);
+
+    this.music = this.sound.add(Music.mianGame, { loop: true, volume: MUSIC_VOLUME });
+    this.music.play();
   }
 
   private intializeVariables(): void {
@@ -163,17 +168,21 @@ export default class MainScene extends Phaser.Scene {
   }
 
   private gameOver(): void {
+    if (!this.endGame) {
+      this.sound.play(SFX.playerHit, { volume: SFX_VOLUME });
+    }
     this.endGame = true;
     this.player.anims.stop();
     this.player.rotation = -0.5;
 
-    this.cameras.main.shake(200, 0.01);
+    this.cameras.main.shake(250, 0.01);
     this.cameras.main.on('camerashakecomplete', () => {
       this.cameras.main.fade(200);
     });
 
     this.cameras.main.on('camerafadeoutcomplete', () => {
       this.releasedButton = false;
+      this.music.stop();
       this.scene.start('LoseScene', { points: this.points });
     });
   }
