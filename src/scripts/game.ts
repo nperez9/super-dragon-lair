@@ -1,5 +1,5 @@
 import 'phaser';
-import { DEFAULT_HEIGHT, DEFAULT_WIDTH, isDev } from './config';
+import { DEFAULT_HEIGHT, DEFAULT_WIDTH, isDev, coreConfig } from './config';
 
 import MainScene from './scenes/mainScene';
 import PreloadScene from './scenes/preloadScene';
@@ -16,7 +16,7 @@ const config = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT,
   },
-  title: 'Super-Dragons-Lair',
+  title: coreConfig.title,
   pixelArt: true,
   scene: [PreloadScene, StartScene, MainScene, LoseScene],
   physics: {
