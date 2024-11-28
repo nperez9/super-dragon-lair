@@ -8,6 +8,7 @@ export class DistanceText extends Phaser.GameObjects.Text {
     this.setDepth(1500).setOrigin(0.5, 1);
     this.setScrollFactor(0);
     this.setStyle({ fontFamily: 'pixel-cursive' });
+    this.setResolution(10);
     scene.add.existing(this);
   }
 

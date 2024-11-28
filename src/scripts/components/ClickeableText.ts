@@ -14,6 +14,7 @@ export class ClickebleText extends Phaser.GameObjects.Text {
   ) {
     super(scene, x, y, text, { ...baseStyle, ...style });
     this.setDepth(1500).setOrigin(0.5, 1);
+    this.setResolution(10);
 
     if (callback) {
       this.setInteractive({ useHandCursor: true })
