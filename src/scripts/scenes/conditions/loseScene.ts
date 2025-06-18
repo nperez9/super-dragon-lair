@@ -2,6 +2,7 @@ import { Sprites } from '../../types/Sprites';
 import { ClickebleText } from '../../components/ClickeableText';
 import { Music } from '../../types/Music';
 import { MUSIC_VOLUME } from '../../config';
+import { getMaxScore, saveMaxScore } from '../../utils/maxScoreManager';
 
 export interface LoseSceneInitData {
   points: number;
@@ -28,6 +29,8 @@ export class LoseScene extends Phaser.Scene {
     this.add.sprite(middleScreen, 0, Sprites.BlackBackground).setScale(1).setOrigin(0.5, 0);
     this.add.sprite(middleScreen, 0, Sprites.PointsBlackBG).setScale(1).setOrigin(0.5, 0);
 
+    const previusScore = getMaxScore();
+
     const clickeable = new ClickebleText(
       this,
       middleScreen,
@@ -39,7 +42,20 @@ export class LoseScene extends Phaser.Scene {
       fontSize: '52px',
       color: '#F80000',
     });
-    const points = new ClickebleText(this, middleScreen, screenHeigth / 2, 'Score: ' + this.points);
+    const points = new ClickebleText(this, middleScreen, screenHeigth / 2 - 25, 'Score: ' + this.points);
+    if (previusScore > this.points) {
+      const maxScoreText = new ClickebleText(this, middleScreen, screenHeigth / 2 + 50, 'Max Score: ' + previusScore, null, {
+        fontSize: '28px',
+        color: '#FFF',
+      });
+    } else {
+      const maxScoreText = new ClickebleText(this, middleScreen, screenHeigth / 2 + 50, 'NEW RECORD!', null, {
+        fontSize: '28px',
+        color: '#FFF',
+      });
+      saveMaxScore(this.points);
+    }
+
     this.cameras.main.fadeIn(200);
     this.cameras.main.on('camerafadeincomplete', () => {
       this.sound.stopAll();

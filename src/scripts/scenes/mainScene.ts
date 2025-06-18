@@ -169,6 +169,7 @@ export default class MainScene extends Phaser.Scene {
 
   private gameOver(): void {
     if (!this.endGame) {
+      this.music.stop();
       this.sound.play(SFX.playerHit, { volume: SFX_VOLUME });
     }
     this.endGame = true;
@@ -177,12 +178,12 @@ export default class MainScene extends Phaser.Scene {
 
     this.cameras.main.shake(250, 0.01);
     this.cameras.main.on('camerashakecomplete', () => {
-      this.cameras.main.fade(200);
+      this.cameras.main.fade(300);
+      this.cameras.main.zoomTo(1.1, 250);
     });
 
     this.cameras.main.on('camerafadeoutcomplete', () => {
       this.releasedButton = false;
-      this.music.stop();
       this.scene.start('LoseScene', { points: this.points });
     });
   }
